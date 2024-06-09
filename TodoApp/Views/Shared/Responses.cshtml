@@ -12,13 +12,13 @@
         }
     }
 
-    @if(ViewData["SuccessMessage"] != null)
+    @if (ViewData["SuccessMessage"] != null)
     {
-        @foreach (var success in (IEnumerable<string>)ViewData["SuccessMessage"])
+        <p class="successMessage">@ViewData["SuccessMessage"]</p>
+        @* foreach (var success in (IEnumerable<string>)ViewData["SuccessMessage"])
         {
             var id = Guid.NewGuid();
-            <p class="errorWarning" id="@id">@success</p>
+            
             @* <script type="text/javascript">responseAdded("@id")</script> *@
-        }
     }
 </div>
