@@ -1,0 +1,53 @@
+﻿.CreateTodo {
+    display: block;
+    padding: 5px;
+    background-color: #fff;
+    width: 175px;
+    height: 50px;
+    border-radius: 5px;
+}
+.CreateTodo button {
+    font-size: 2rem;
+    border: none;
+    width: inherit;
+    height: inherit;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.CreateTodo:hover {
+    cursor: pointer;
+}
+
+.CreateTodoForm {
+    height: fit-content;
+    width: 50%;
+}
+
+.CreateTodoForm input[type="text"],
+.CreateTodoForm input[type="submit"],
+.CreateTodoForm textarea {
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #fff;
+    margin: 5px;
+}
+
+.CreateTodoForm input[type="text"],
+.CreateTodoForm input[type="submit"] {
+    font-size: 1.5rem;
+}
+
+.checkbox input[type="checkbox"],
+.checkbox label {
+    font-size: 1.5rem;
+}
+.checkbox {
+    margin: 5px;
+}
+.CreateTodoForm textarea {
+    height: 75px;
+    min-height: 75px;
+}
