@@ -1,12 +1,29 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model TodoApp.Models.Auth.LoginData
 @{
     ViewData["Title"] = "Login";
 }
+<link rel="stylesheet" href="~/css/Auth/Login.css" asp-append-version="true"/>
 
-<div class="text-center">
-    <h2>Login</h2>
+<div class="flex flex-center text-center">
+    <div class="login">
+        <h1>Login</h1>
+        @if(ViewData["LoginErrors"] != null) {
+            @foreach(var error in (IEnumerable<string>)ViewData["LoginErrors"])
+            {
+                <p class="errorWarning">@error</p>
+            }
+        }
 
-    <p>Hello from our view template</p>
+        @using (Html.BeginForm("Login", "Auth", FormMethod.Post, new {@class ="loginForm"}))
+        {
+            @Html.TextBoxFor(m => m.Email, new {placeholder="Email"})
+            @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
+
+            <input type="submit" value="Login" class="submit" />
+        }
+
+    </div>
 </div>

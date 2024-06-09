@@ -1,3 +1,7 @@
+using Microsoft.Extensions.Configuration;
+using TodoApp.Configuration;
+using TodoApp.Services;
+
 namespace TodoApp
 {
 	public class Program
@@ -5,9 +9,14 @@ namespace TodoApp
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
+            ConfigurationManager configuration = builder.Configuration;
 
-			// Add services to the container.
-			builder.Services.AddControllersWithViews();
+            // Add services to the container.
+            builder.Services.AddControllersWithViews();
+            builder.Services.Configure<ConfigurationModel>(configuration.GetSection("AppSettings"));
+
+			// Add Services
+			builder.Services.AddScoped<APIService>();
 
 			var app = builder.Build();
 
@@ -18,7 +27,6 @@ namespace TodoApp
 				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
-
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 

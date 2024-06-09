@@ -43,12 +43,14 @@ namespace TodoApi.Controllers
         {
             try
             {
+                Console.WriteLine("New Login Request");
                 JWTToken token = _authService.LoginUser(loginModel);
 
                 Console.WriteLine(token);
                 return Ok(new Response(200, "Sucessfully logged in user", token));
             } catch(Exception ex)
             {
+                Console.WriteLine(ex.GetType());
                 if (ex.GetType() == typeof(Error))
                 {
                     Error error = (Error)ex;
