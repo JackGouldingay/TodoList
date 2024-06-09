@@ -1,4 +1,15 @@
-﻿<head>
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+	foreach(var cookie in HttpContextAccessor.HttpContext.Request.Cookies)
+	{
+		if(cookie.Key == "token")
+		{
+			ViewData["token"] = cookie.Value;
+		}
+	}
+}
+
+<head>
 	<link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
 </head>
 <nav class="flex flex-end">
@@ -8,8 +19,15 @@
 	<div class="flex flex-1 flex-end">
 		<a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 		<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-		<a>Notes</a>
+		<a asp-area="" asp-controller="Notes" asp-action="Index">Notes</a>
 		<span class="blank space"/>
-		<a asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
+		@{
+			if(ViewData["token"]==null)	{
+				<a asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
+			} else
+			{
+				<a asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
+			}
+		}
 	</div>
 </nav>

@@ -24,6 +24,11 @@ namespace TodoApp.Controllers.Auth
             return View();
         }
 
+        public IActionResult Logout()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginData loginData)
         {

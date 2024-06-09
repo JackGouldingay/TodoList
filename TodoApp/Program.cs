@@ -17,6 +17,7 @@ namespace TodoApp
 
 			// Add Services
 			builder.Services.AddScoped<APIService>();
+			builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
 			var app = builder.Build();
 

@@ -21,7 +21,6 @@ namespace TodoApp.Services
             using(var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(config.APIURL);
-                //var dataToSend = JsonSerializer.Serialize(_data);
                 var dataToSend = JsonConvert.SerializeObject(_data);
                 var stringData = new StringContent(dataToSend, Encoding.UTF8, @"application/json");
                 var result = await client.PostAsync($"api{url}", stringData);
@@ -43,5 +42,32 @@ namespace TodoApp.Services
                 }
             }
         }
-    }
+
+		public async Task<object?> GetRequest(string url, object _data)
+		{
+			using (var client = new HttpClient())
+			{
+				client.BaseAddress = new Uri(config.APIURL);
+				var dataToSend = JsonConvert.SerializeObject(_data);
+				var stringData = new StringContent(dataToSend, Encoding.UTF8, @"application/json");
+				var result = await client.GetAsync($"api{url}");
+
+				if (result.IsSuccessStatusCode)
+				{
+					string resultContent = await result.Content.ReadAsStringAsync();
+					Console.WriteLine(resultContent);
+					var response = JsonConvert.DeserializeObject<ApiResponse>(resultContent);
+
+					return response;
+				}
+				else
+				{
+					string resultContent = await result.Content.ReadAsStringAsync();
+					ApiResponseError error = JsonConvert.DeserializeObject<ApiResponseError>(resultContent);
+
+					throw error;
+				}
+			}
+		}
+	}
 }
