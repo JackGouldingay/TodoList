@@ -1,0 +1,39 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+    /*flex-basis: 1;*/
+}
+.flex-col {
+    flex-direction: column;
+}
+.flex-row {
+    flex-direction: row;
+}
+.flex-end {
+    justify-content: flex-end;
+    align-self: flex-end;
+}
+.flex-1 {
+    flex-grow: 1;
+}
+.flex-2 {
+    flex-grow: 2;
+}
+.flex-3 {
+    flex-grow: 3;
+}
+.flex-bottom {
+    align-content: flex-end;
+}
+.flex-center {
+    justify-content: center;
+}
+
+.text-center {
+    text-align: center;
+}

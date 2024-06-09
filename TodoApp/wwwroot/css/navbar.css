@@ -1,0 +1,30 @@
+﻿nav {
+    width: 100vw;
+    height: 7vh;
+}
+
+nav a {
+    padding: 20px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #918983;
+    display: block;
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+nav .title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 2rem;
+}
+
+nav .right {
+    float: right;
+}
+
+/*When mouse over links change colour */
+nav a:hover {
+    color: #f1f1f1;
+}

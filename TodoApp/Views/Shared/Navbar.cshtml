@@ -1,0 +1,15 @@
+﻿<head>
+	<link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
+</head>
+<nav class="flex flex-end">
+	<div class="flex flex-2">
+		<a class="title" asp-area="" asp-controller="Home" asp-action="Index">TodoApp</a>
+	</div>
+	<div class="flex flex-1 flex-end">
+		<a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+		<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+		<a>Notes</a>
+		<span class="blank space"/>
+		<a asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
+	</div>
+</nav>

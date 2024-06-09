@@ -47,7 +47,7 @@ namespace TodoApi.Services
                 return user;
             } catch(Exception ex)
             {
-                throw new Error(400, "Unable to register user.", "");
+                throw new Error(400, ex.Message, "");
             }
         }
 
@@ -72,7 +72,8 @@ namespace TodoApi.Services
                 return token;
             } catch(Exception ex)
             {
-                throw new Error(401, "Unable to login user.", "");
+                Console.WriteLine(ex.Message);
+                throw new Error(401, ex.Message, "");
             }
         }
 
