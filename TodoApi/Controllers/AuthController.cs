@@ -10,9 +10,11 @@ namespace TodoApi.Controllers
     public class AuthController : Controller
     {
         private readonly AuthService _authService;
-        public AuthController(AuthService authService)
+        private readonly JWTService _jWTService;
+        public AuthController(AuthService authService, JWTService jWTService)
         {
             _authService = authService;
+            _jWTService = jWTService;
         }
 
         [HttpPost("register")]
@@ -61,5 +63,29 @@ namespace TodoApi.Controllers
                 return BadRequest(new Error(400, "Unable to login user.", "").GetError());
             }
         }
-    }
+
+		[HttpGet("verify")]
+		public ActionResult VerifyUser(string token)
+		{
+			try
+			{
+				Console.WriteLine("New Login Request");
+                Guid userId = _jWTService.Verify(token);
+				return Ok(new Response(200, "Sucessfully logged in user", new {userId, verified=true}));
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.GetType());
+				if (ex.GetType() == typeof(Error))
+				{
+					Error error = (Error)ex;
+
+					return StatusCode(error.status, error.GetError());
+				}
+
+				return BadRequest(new Error(400, "Unable to verify user.", "").GetError());
+			}
+		}
+
+	}
 }

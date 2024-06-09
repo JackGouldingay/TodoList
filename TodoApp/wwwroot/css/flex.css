@@ -18,6 +18,12 @@
     justify-content: flex-end;
     align-self: flex-end;
 }
+.flex-wrap {
+    flex-wrap: wrap;
+}
+.flex-nowrap {
+    flex-wrap: nowrap;
+}
 .flex-1 {
     flex-grow: 1;
 }

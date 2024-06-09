@@ -1,5 +1,22 @@
-﻿@*
+﻿@using TodoApp.Models.Notes
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
+<div class="flex flex-wrap flex-center todos">
+    @{
+        List<Note> notes = (List<Note>)ViewData["Notes"];
+        if(notes != null)
+        {
+            for(var i=0; i < notes.Count(); i++)
+            {
+                int row = (i % 3);
+                Note note = notes[i];
+                <div class="card">
+                    @Html.ActionLink(note.Name, "Note", new {id=note.Id})
+                </div>
+            }
+        }
+    }
+</div>
