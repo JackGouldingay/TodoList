@@ -40,7 +40,7 @@ namespace TodoApi.Controllers
             }
         }
 
-        [HttpGet()]
+        [HttpGet("all")]
         public ActionResult GetTodos(string ownerId)
         {
             try
@@ -48,6 +48,29 @@ namespace TodoApi.Controllers
                 IEnumerable<TodoItem> todoItem = _todoService.GetTodoItems(Guid.Parse(ownerId));
 
                 return Ok(new Response(200, "Successfully found todos", todoItem));
+            }
+            catch (Exception ex)
+            {
+                if (ex.GetType() == typeof(Error))
+                {
+                    Error error = (Error)ex;
+
+                    return StatusCode(error.status, error.GetError());
+                }
+
+                return BadRequest(new Error(400, "Unable to create todo item.", "").GetError());
+
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetTodo(string id)
+        {
+            try
+            {
+                TodoItem todoItem = _todoService.GetTodoItem(Guid.Parse(id));
+
+                return Ok(new Response(200, "Successfully found todo", todoItem));
             }
             catch (Exception ex)
             {

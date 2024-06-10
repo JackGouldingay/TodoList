@@ -10,12 +10,6 @@
 <div class="flex flex-center text-center">
     <div class="login">
         <h1>Login</h1>
-        @if(ViewData["LoginErrors"] != null) {
-            @foreach(var error in (IEnumerable<string>)ViewData["LoginErrors"])
-            {
-                <p class="errorWarning">@error</p>
-            }
-        }
 
         @using (Html.BeginForm("Login", "Auth", FormMethod.Post, new {@class ="loginForm"}))
         {

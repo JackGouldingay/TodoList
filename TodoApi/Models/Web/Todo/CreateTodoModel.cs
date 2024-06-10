@@ -5,6 +5,7 @@ namespace TodoApi.Models.Web.Todo
 {
     public class CreateTodoModel
     {
+        public Guid Id { get; } = Guid.NewGuid();
         [Required(ErrorMessage = "Name is required")]
         [JsonPropertyName("name")]
         public required string Name { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using TodoApp.Configuration;
 using TodoApp.Models;
 using TodoApp.Models.Auth;
@@ -23,6 +24,11 @@ namespace TodoApp.Controllers.Auth
             return View();
         }
 
+        public IActionResult Logout()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginData loginData)
         {
@@ -36,19 +42,25 @@ namespace TodoApp.Controllers.Auth
             try
             {
                 ApiResponse response = (ApiResponse)await apiService.PostRequest("/auth/login", loginData);
-                ViewData["SuccessMessage"] = response.ApiMessage;
-                Console.WriteLine(response);
+                dynamic data = response.Data;
+                ViewData["SuccessMessage"] = response.Message;
+
+                var cookieOptions = new CookieOptions();
+                cookieOptions.Expires = DateTime.Parse((string)data.expiration);
+                cookieOptions.Path = "/";
+                Response.Cookies.Append("token", (string)data.token);
+                
+                return Redirect("~/Home");
             } catch(Exception ex)
             {
-                if(ex.GetType() == typeof(ApiResponse))
+                if(ex.GetType() == typeof(ApiResponseError))
                 {
-                    ApiResponse error = (ApiResponse)ex;
+                    ApiResponseError error = (ApiResponseError)ex;
                     ViewData["Errors"] = new List<string>() { error.ApiMessage };
 
                     return View();
                 }
             }
-            
             return View();
         }
     }

@@ -1,0 +1,9 @@
+﻿@using TodoApp.Models.Notes;
+@model TodoApp.Models.Notes.Note;
+@{
+    Note note = (Note)ViewData["Note"];
+}
+@using(Html.BeginForm("Note", "Notes",FormMethod.Post, new {@class="note"}))
+{
+    @Html.TextBoxFor(n => n.Name)
+}

@@ -17,6 +17,7 @@ namespace TodoApp
 
 			// Add Services
 			builder.Services.AddScoped<APIService>();
+			builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
 			var app = builder.Build();
 
@@ -27,6 +28,7 @@ namespace TodoApp
 				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
+
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 

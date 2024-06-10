@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using System.Text;
-using System.Text.Json;
 using TodoApp.Configuration;
 using TodoApp.Models;
 
@@ -21,25 +21,47 @@ namespace TodoApp.Services
             using(var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(config.APIURL);
-                var dataToSend = JsonSerializer.Serialize(_data);
+                var dataToSend = JsonConvert.SerializeObject(_data);
                 var stringData = new StringContent(dataToSend, Encoding.UTF8, @"application/json");
                 var result = await client.PostAsync($"api{url}", stringData);
 
                 if (result.IsSuccessStatusCode)
                 {
                     string resultContent = await result.Content.ReadAsStringAsync();
-                    Console.WriteLine(resultContent);
-                    object responseJson = JsonSerializer.Deserialize<object>(resultContent);
-
-                    return responseJson;
+                    var response = JsonConvert.DeserializeObject<ApiResponse>(resultContent);
+                    
+                    return response;
                 }
                 else
                 {
                     string resultContent = await result.Content.ReadAsStringAsync();
-                    ApiResponse apiError = JsonSerializer.Deserialize<ApiResponse>(resultContent);
+                    ApiResponseError error = JsonConvert.DeserializeObject<ApiResponseError>(resultContent);
 
+                    throw error;
+                }
+            }
+        }
 
-                    throw apiError;
+        public async Task<object?> GetRequest(string url)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(config.APIURL);
+                var result = await client.GetAsync($"api{url}");
+
+                if (result.IsSuccessStatusCode)
+                {
+                    string resultContent = await result.Content.ReadAsStringAsync();
+                    await Console.Out.WriteLineAsync(resultContent);
+                    var response = JsonConvert.DeserializeObject<ApiResponse>(resultContent);
+                    return response;
+                }
+                else
+                {
+                    string resultContent = await result.Content.ReadAsStringAsync();
+                    ApiResponseError error = JsonConvert.DeserializeObject<ApiResponseError>(resultContent);
+
+                    throw error;
                 }
             }
         }
