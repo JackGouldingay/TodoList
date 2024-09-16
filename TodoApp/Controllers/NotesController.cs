@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TodoApp.Models;
 using TodoApp.Models.Notes;
@@ -6,20 +7,20 @@ using TodoApp.Services;
 
 namespace TodoApp.Controllers
 {
-	public class NotesController : Controller
+	public partial class NotesController : Controller
 	{
 		private APIService _apiService;
 		public NotesController(APIService apiService)
 		{
 			_apiService = apiService;
 		}
-
+		
 		public async Task<IActionResult> Index()
 		{
-			string token = Request.Cookies.First(cookie => cookie.Key == "token").Value;
-			
 			try
 			{
+				string token = Request.Cookies.First(cookie => cookie.Key == "token").Value;
+				
 				ApiResponse response = (ApiResponse)await _apiService.GetRequest($"/auth/verify?token={token}");
 				string userId = response.Data.userId;
 				ApiResponse noteResponse = (ApiResponse)await _apiService.GetRequest($"/todo/all?ownerId={userId}");
@@ -46,12 +47,17 @@ namespace TodoApp.Controllers
 			return View();
 		}
 
+		public IActionResult CreateNote()
+		{
+			return View();
+		}
+		
 		public async Task<IActionResult> Note(string id)
 		{
 			try
 			{
 				ApiResponse noteResponse = (ApiResponse)await _apiService.GetRequest($"/todo?id={id}");
-				Note note = (Note)noteResponse.Data;
+				Note note = noteResponse.Data;
 
 				ViewData["Note"] = note;
 

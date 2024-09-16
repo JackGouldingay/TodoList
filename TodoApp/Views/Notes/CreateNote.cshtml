@@ -1,0 +1,22 @@
+@model TodoApp.Models.Notes.CreateNote
+
+@{
+    ViewData["Title"] = "Create Note";
+}
+<link rel="stylesheet" href="~/css/form.css" asp-append-version="true"/>
+
+<div class="flex flex-center text-center">
+    <div class="formHolder">
+        <h1>Login</h1>
+
+        @using (Html.BeginForm("CreateNote", "Notes", FormMethod.Post, new {@class ="form"}))
+        {
+            @Html.TextBoxFor(m => m.Name, new {placeholder="Name"})
+            @Html.TextAreaFor(m => m.Description, new { placeholder = "Description" })
+            @Html.CheckBoxFor(m => m.Completed)
+        
+            <input type="submit" value="Create Note" class="submit" />
+        }
+
+    </div>
+</div>

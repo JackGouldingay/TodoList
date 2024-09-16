@@ -1,12 +1,24 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model TodoApp.Models.Auth.RegisterData
 @{
     ViewData["Title"] = "Register";
 }
 
-<div class="text-center">
-    <h2>Register</h2>
+<link rel="stylesheet" href="~/css/Auth/Register.css" asp-append-version="true"/>
 
-    <p>Hello from our view template</p>
+<div class="flex flex-center text-center">
+    <div class="register">
+        <h2>Register</h2>
+
+        @using (Html.BeginForm("Register", "Auth", FormMethod.Post, new { @class = "registerForm" }))
+        {
+        @Html.TextBoxFor(m => m.Name, new {placeholder="Name"})
+        @Html.TextBoxFor(m => m.Email, new {placeholder="Email"})
+        @Html.PasswordFor(m => m.Password, new {placeholder="Password"})
+
+        <input type="submit" value="Register" class="submit"/>
+        }
+    </div>
 </div>
