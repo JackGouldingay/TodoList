@@ -5,7 +5,7 @@ namespace TodoApp.Models.Notes
     public class Note
     {
         [JsonPropertyName("id")]
-        public string? Id { get; set; }
+        public string Id { get; set; }
         [JsonPropertyName("name")]
         public string Name { get; set; }
         [JsonPropertyName("description")]

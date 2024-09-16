@@ -1,0 +1,27 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model TodoApp.Models.Notes.Note
+@{
+    ViewData["Title"] = "Create Todo";
+}
+<link rel="stylesheet" href="~/css/Notes/notes.css" asp-append-version="true"/>
+
+<div class="flex flex-row flex-center">
+    <div class="flex flex-col flex-center CreateTodoForm">
+        <h1>Create Todo</h1>
+
+        @using (Html.BeginForm("Create", "Notes", FormMethod.Post, new { @class = "createForm flex flex-col" }))
+        {
+            @Html.TextBoxFor(m => m.Name, new { placeholder = "Name" })
+            @Html.TextAreaFor(m => m.Description)
+            <div class="checkbox">
+                @Html.LabelFor(m => m.Completed, "Completed")
+                @Html.CheckBoxFor(m => m.Completed)
+            </div>
+
+            <input type="submit" value="Create" class="submit" />
+
+        }
+    </div>
+</div>

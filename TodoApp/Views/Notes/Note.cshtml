@@ -5,5 +5,5 @@
 }
 @using(Html.BeginForm("Note", "Notes",FormMethod.Post, new {@class="note"}))
 {
-    @* @Html.TextBox(n => n.Name) *@
+    @Html.TextBoxFor(n => n.Name)
 }
