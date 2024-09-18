@@ -11,7 +11,7 @@
     <div class="flex flex-col flex-center CreateTodoForm">
         <h1>Create Todo</h1>
 
-        @using (Html.BeginForm("Create", "Notes", FormMethod.Post, new { @class = "createForm flex flex-col" }))
+        @using (Html.BeginForm("CreateNote", "Notes", FormMethod.Post, new { @class = "createForm flex flex-col" }))
         {
             @Html.TextBoxFor(m => m.Name, new { placeholder = "Name" })
             @Html.TextAreaFor(m => m.Description)
@@ -21,7 +21,6 @@
             </div>
 
             <input type="submit" value="Create" class="submit" />
-
         }
     </div>
 </div>

@@ -1,9 +1,24 @@
 ﻿@using TodoApp.Models.Notes;
 @model TodoApp.Models.Notes.Note;
 @{
-    Note note = (Note)ViewData["Note"];
+    Note note = (Note)ViewData["Note"]!;
+    Console.WriteLine(note.Name);
 }
-@using(Html.BeginForm("Note", "Notes",FormMethod.Post, new {@class="note"}))
-{
-    @Html.TextBoxFor(n => n.Name)
-}
+<link rel="stylesheet" href="~/css/Notes/notes.css" asp-append-version="true"/>
+
+<div class="flex flex-row flex-center">
+    <div class="flex flex-col flex-center UpdateTodoForm">
+        @using(Html.BeginForm("UpdateNote", "Notes", FormMethod.Post))
+        {
+            @Html.TextBoxFor(n => n.Name, new { Value = "o"})
+            @Html.TextAreaFor(n => n.Description, (string)note.Description)
+
+            <div class="checkbox">
+                @Html.LabelFor(m => m.Completed, "Completed")
+                @Html.CheckBoxFor(m => m.Completed, (bool)note.Completed)
+            </div>
+
+            <input type="submit" value="Update Note" class="submit" />
+        }
+    </div>
+</div>
