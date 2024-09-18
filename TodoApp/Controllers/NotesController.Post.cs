@@ -12,7 +12,6 @@ public partial class NotesController
     {
         try
         {
-            noteData.OwnerId = Request.Cookies.FirstOrDefault(c => c.Key == "userId").Value;
             if(!ModelState.IsValid)
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
@@ -21,6 +20,7 @@ public partial class NotesController
                 return View();
             }
                 
+            noteData.OwnerId = Request.Cookies.FirstOrDefault(c => c.Key == "userId").Value;
             ApiResponse response = (ApiResponse) await _apiService.PostRequest("/Todo/Create", noteData);
             dynamic data = response.Data;
             ViewData["SuccessMessage"] = response.Message;
@@ -38,5 +38,11 @@ public partial class NotesController
             }
         }
         return View();
+    }
+
+    public async Task<IActionResult> UpdateNote(Note note)
+    {
+        Console.WriteLine(note);
+        return Redirect("~/Notes");
     }
 }

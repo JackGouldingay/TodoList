@@ -33,21 +33,15 @@ namespace TodoApp.Controllers
 
 				return View();
 			}
-			catch (Exception ex)
+			catch (ApiResponseError ex)
 			{
-				if (ex.GetType() == typeof(ApiResponseError))
-				{
-					ApiResponseError error = (ApiResponseError)ex;
-					ViewData["Errors"] = new List<string>() { error.ApiMessage };
+				ViewData["Errors"] = new List<string>() { ex.ApiMessage };
 
-					return View();
-				}
+				return View();
 			}
-
-			return View();
 		}
 
-		public IActionResult CreateNote()
+		public IActionResult Create()
 		{
 			return View();
 		}
@@ -57,23 +51,18 @@ namespace TodoApp.Controllers
 			try
 			{
 				ApiResponse noteResponse = (ApiResponse)await _apiService.GetRequest($"/todo?id={id}");
-				Note note = noteResponse.Data;
-
+				JObject data = noteResponse.Data;
+				Note note = data.ToObject<Note>();
 				ViewData["Note"] = note;
 
 				return View();
 			}
-            catch (Exception ex)
+            catch (ApiResponseError ex)
             {
-                if (ex.GetType() == typeof(ApiResponseError))
-                {
-                    ApiResponseError error = (ApiResponseError)ex;
-                    ViewData["Errors"] = new List<string>() { error.ApiMessage };
+                ViewData["Errors"] = new List<string>() { ex.ApiMessage };
 
-                    return View();
-                }
+                return View();
             }
-            return View();
 		}
 	}
 }

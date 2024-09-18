@@ -1,4 +1,4 @@
-﻿.CreateTodo {
+﻿.CreateTodo, .UpdateTodoForm{
     display: block;
     padding: 5px;
     background-color: #fff;
@@ -19,14 +19,18 @@
     cursor: pointer;
 }
 
-.CreateTodoForm {
+.CreateTodoForm,
+.UpdateTodoForm{
     height: fit-content;
     width: 50%;
 }
 
 .CreateTodoForm input[type="text"],
+.UpdateTodoForm input[type="text"],
 .CreateTodoForm input[type="submit"],
-.CreateTodoForm textarea {
+.UpdateTodoForm input[type="submit"].
+.CreateTodoForm textarea,
+.UpdateTodoForm textarea {
     min-width: 100%;
     max-width: 100%;
     width: 100%;
@@ -36,7 +40,9 @@
 }
 
 .CreateTodoForm input[type="text"],
-.CreateTodoForm input[type="submit"] {
+.UpdateTodoForm input[type="text"],
+.CreateTodoForm input[type="submit"],
+.UpdateTodoForm input[type="submit"]{
     font-size: 1.5rem;
 }
 
@@ -47,7 +53,8 @@
 .checkbox {
     margin: 5px;
 }
-.CreateTodoForm textarea {
+.CreateTodoForm textarea,
+.UpdateTodoForm textarea {
     height: 75px;
     min-height: 75px;
 }
